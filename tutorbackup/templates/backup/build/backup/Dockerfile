@@ -3,8 +3,8 @@ ENV PYTHONUNBUFFERED 1
 RUN python3 -m venv /s3/venv/
 ENV PATH "/s3/venv/bin:$PATH"
 
-RUN curl -fsSL https://www.mongodb.org/static/pgp/server-4.2.asc | gpg --dearmor | tee /usr/share/keyrings/mongodb-ce-archive-keyring.gpg && \
-    echo "deb [arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-ce-archive-keyring.gpg] https://repo.mongodb.org/apt/debian buster/mongodb-org/4.2 main" | tee /etc/apt/sources.list.d/mongodb-org-4.2.list && \
+RUN curl -fsSL https://www.mongodb.org/static/pgp/server-6.0.asc | gpg --dearmor | tee /usr/share/keyrings/mongodb-ce-archive-keyring.gpg && \
+    echo "deb [arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-ce-archive-keyring.gpg] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/6.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-6.0.list && \
     apt-get update && \
     apt-get install -y --no-install-recommends default-mysql-client mongodb-org-tools && \
     pip install --upgrade pip && \
@@ -14,4 +14,5 @@ RUN curl -fsSL https://www.mongodb.org/static/pgp/server-4.2.asc | gpg --dearmor
 COPY backup_services.py .
 COPY restore_services.py .
 COPY s3_client.py .
+
 
